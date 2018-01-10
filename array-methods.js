@@ -6,7 +6,7 @@ var dataset = require('./dataset.json');
   assign the resulting new array to `hundredThousandairs`
 */
 var hundredThousandairs = dataset.bankBalances.filter(function (element) {
-  return element.amount > 100000;
+  return parseFloat(element.amount) > 100000;
 });
 
 
@@ -29,11 +29,10 @@ var hundredThousandairs = dataset.bankBalances.filter(function (element) {
   assign the resulting new array to `datasetWithRoundedDollar`
 */
 var datasetWithRoundedDollar = dataset.bankBalances.map(function (element) {
-   const newData = {};
-   Object.assign(newData,element);
-   newData.rounded = Math.round(parseFloat((element.amount))); 
-   return newData;
-  
+  const newData = Object.assign({},element);
+  newData.rounded = Math.round(parseFloat((element.amount)));
+  return newData;
+
 });
 
 /*
@@ -62,20 +61,20 @@ var datasetWithRoundedDollar = dataset.bankBalances.map(function (element) {
 
 var datasetWithRoundedDime = dataset.bankBalances.map(function (element) {
   const newData = {};
-  Object.assign(newData,element);
+  Object.assign(newData, element);
   dime = parseFloat(element.amount);
-  newData.roundedDime = Math.round(dime *10)/10;
+  newData.roundedDime = Math.round(dime * 10) / 10;
   return newData;
- 
+
 });
 
 // set sumOfBankBalances to be the sum of all value held at `amount` for each bank object
-var arr = dataset.bankBalances.map(function(element){
+
+var sumOfBankBalances = dataset.bankBalances.map(function (element) {
   return parseFloat(element.amount);
-});
-var sumOfBankBalances = arr.reduce(function(prev, curr) {
-  let sum = prev + curr;
-  return Math.round( (sum) * 100) / 100;
+}).reduce(function (prev, curr) {
+  sum = prev + curr;
+  return Math.round((sum) * 100) / 100;
 });
 
 /*
@@ -90,8 +89,11 @@ var sumOfBankBalances = arr.reduce(function(prev, curr) {
   and then sum it all up into one value saved to `sumOfInterests`
  */
 
-var sumOfInterests = arr.filter ;
-
+let states = ['WI', 'IL', 'WY', 'OH', 'GA', 'DE'];
+var sumOfInterests = dataset.bankBalances.filter(function (curr) {
+  return !states.includes(curr.states);
+});
+console.log(sumOfInterests);
 /*
   aggregate the sum of bankBalance amounts
   grouped by state
