@@ -59,6 +59,7 @@ var datasetWithRoundedDollar = dataset.bankBalances.map(function (element) {
     }
   assign the resulting new array to `roundedDime`
 */
+
 var datasetWithRoundedDime = dataset.bankBalances.map(function (element) {
   const newData = {};
   Object.assign(newData,element);
@@ -69,7 +70,13 @@ var datasetWithRoundedDime = dataset.bankBalances.map(function (element) {
 });
 
 // set sumOfBankBalances to be the sum of all value held at `amount` for each bank object
-var sumOfBankBalances = null;
+var arr = dataset.bankBalances.map(function(element){
+  return parseFloat(element.amount);
+});
+var sumOfBankBalances = arr.reduce(function(prev, curr) {
+  let sum = prev + curr;
+  return Math.round( (sum) * 100) / 100;
+});
 
 /*
   from each of the following states:
@@ -82,7 +89,8 @@ var sumOfBankBalances = null;
   take each `amount` and add 18.9% interest to it rounded to the nearest cent
   and then sum it all up into one value saved to `sumOfInterests`
  */
-var sumOfInterests = null;
+
+var sumOfInterests = arr.filter ;
 
 /*
   aggregate the sum of bankBalance amounts
@@ -120,11 +128,17 @@ var stateSums = null;
  */
 var sumOfHighInterests = null;
 
-/*
-  set `lowerSumStates` to be an array of two letter state
-  abbreviations of each state where the sum of amounts
-  in the state is less than 1,000,000
- */
+// for all states not in the following states:
+//       Wisconsin              Wisconsin
+//       Illinois              Illinois
+//       Wyoming              Wyoming
+//       Ohio              Ohio
+//       Georgia              Georgia
+//       Delaware              Delaware
+//   sum the amount for each state (stateSum)
+//   take each `stateSum` and add 18.9% interest to it
+//   sum only `stateSum` who's interest only values is greater than 50,000 and save it to `sumOfHighInterests`
+
 var lowerSumStates = null;
 
 /*
